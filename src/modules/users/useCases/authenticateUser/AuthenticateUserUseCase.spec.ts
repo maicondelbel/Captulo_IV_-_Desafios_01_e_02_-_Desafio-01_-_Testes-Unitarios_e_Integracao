@@ -28,24 +28,31 @@ describe("Create a User", () => {
     });
 
     expect(userAuthenticated).toHaveProperty("token");
+
   });
 
   it("Should not be able to authenticate a user with a wrong password", async () => {
     expect(async () => {
+
       await authenticateUserUseCase.execute({
         email: "user@domain.com",
         password: "wrongPassword"
       });
+
     }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError)
+
   });
 
   it("Should not be able to authenticate a non-existent user", () => {
     expect(async () => {
+
       await authenticateUserUseCase.execute({
         email: "nonexistsuser@domain.com",
         password: "password"
       });
+
     }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError);
+
 });
 
 });

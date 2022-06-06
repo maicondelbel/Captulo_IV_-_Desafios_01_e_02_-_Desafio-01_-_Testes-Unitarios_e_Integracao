@@ -36,12 +36,16 @@ describe("Create a User", () => {
     expect(userProfile).toHaveProperty("id");
     expect(userProfile.name).toBe("New User");
     expect(userProfile.email).toBe("user@domain.com");
+
   });
 
   it("Should not be able to get profile informations for a non-exists user", async () => {
     expect(async () => {
+
       await showUserProfileUseCase.execute("anUnavailableId");
+
     }).rejects.toBeInstanceOf(ShowUserProfileError);
+
   });
 
 });

@@ -29,7 +29,6 @@ describe("Create Statement", () => {
       password: "password"
     });
 
-
     const makeDeposit = await createStatementUseCase.execute({
       user_id: user.id as string,
       description: "Deposit test",
@@ -43,14 +42,12 @@ describe("Create Statement", () => {
 
   });
 
-
   it("Should be able to create a new withdraw", async () => {
     const user = await createUserUseCase.execute({
       name: "New User",
       email: "newuser@domain.com",
       password: "password"
     });
-
 
     await createStatementUseCase.execute({
       user_id: user.id as string,
@@ -83,6 +80,7 @@ describe("Create Statement", () => {
       })
 
     }).rejects.toBeInstanceOf(CreateStatementError.UserNotFound);
+
   });
 
   it("Should not be able to create a statement with insufficient funds", async () => {
@@ -93,7 +91,6 @@ describe("Create Statement", () => {
         email: "newuser@domain.com",
         password: "password"
       });
-
 
       await createStatementUseCase.execute({
         user_id: user.id as string,
@@ -110,6 +107,7 @@ describe("Create Statement", () => {
       })
 
     }).rejects.toBeInstanceOf(CreateStatementError.InsufficientFunds);
+
   });
 
 });

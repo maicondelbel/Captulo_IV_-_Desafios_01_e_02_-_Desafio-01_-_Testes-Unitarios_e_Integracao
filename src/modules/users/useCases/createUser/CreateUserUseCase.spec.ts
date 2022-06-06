@@ -13,6 +13,7 @@ describe("Create a User", () => {
   });
 
   it("Should be able to create a new User", async () => {
+
     const user = await createUserUseCase.execute({
       name: "New User",
       email: "newuser@domain.com",
@@ -43,6 +44,6 @@ describe("Create a User", () => {
       });
 
     }).rejects.toBeInstanceOf(CreateUserError);
-  });
 
+  });
 });

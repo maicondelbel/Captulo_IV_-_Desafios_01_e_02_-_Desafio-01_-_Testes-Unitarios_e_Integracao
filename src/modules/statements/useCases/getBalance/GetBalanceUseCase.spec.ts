@@ -32,7 +32,6 @@ describe("Get Balance", () => {
       password: "password"
     });
 
-
     await createStatementUseCase.execute({
       user_id: user.id as string,
       description: "Deposit test",
@@ -67,6 +66,7 @@ describe("Get Balance", () => {
       })
 
     }).rejects.toBeInstanceOf(GetBalanceError);
+
   });
 
 });
