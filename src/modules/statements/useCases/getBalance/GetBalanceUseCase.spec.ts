@@ -1,14 +1,10 @@
 import { InMemoryUsersRepository } from "../../../users/repositories/in-memory/InMemoryUsersRepository";
 import { CreateUserUseCase } from "../../../users/useCases/createUser/CreateUserUseCase";
+import { OperationType } from "../../entities/Statement";
 import { InMemoryStatementsRepository } from "../../repositories/in-memory/InMemoryStatementsRepository";
 import { CreateStatementUseCase } from "../createStatement/CreateStatementUseCase";
 import { GetBalanceError } from "./GetBalanceError";
 import { GetBalanceUseCase } from "./GetBalanceUseCase";
-
-enum OperationType {
-  DEPOSIT = 'deposit',
-  WITHDRAW = 'withdraw',
-}
 
 let createStatementUseCase: CreateStatementUseCase;
 let createUserUseCase: CreateUserUseCase;
@@ -36,14 +32,14 @@ describe("Get Balance", () => {
       user_id: user.id as string,
       description: "Deposit test",
       amount: 500,
-      type: 'deposit' as OperationType
+      type: OperationType.DEPOSIT,
     })
 
     await createStatementUseCase.execute({
       user_id: user.id as string,
       description: "Withdraw test",
       amount: 200,
-      type: 'withdraw' as OperationType
+      type: OperationType.WITHDRAW,
     })
 
     const userBalance = await getBalanceUseCase.execute({

@@ -8,8 +8,10 @@ import './database';
 import './shared/container';
 import { router } from './routes';
 import { AppError } from './shared/errors/AppError';
+import { createConnection } from 'typeorm';
 
 const app = express();
+createConnection();
 
 app.use(cors());
 app.use(express.json());

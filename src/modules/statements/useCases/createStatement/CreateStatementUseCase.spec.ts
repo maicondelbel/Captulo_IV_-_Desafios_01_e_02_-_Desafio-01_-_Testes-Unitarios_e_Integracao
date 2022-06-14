@@ -1,13 +1,9 @@
 import { InMemoryUsersRepository } from "../../../users/repositories/in-memory/InMemoryUsersRepository";
 import { CreateUserUseCase } from "../../../users/useCases/createUser/CreateUserUseCase";
+import { OperationType } from "../../entities/Statement";
 import { InMemoryStatementsRepository } from "../../repositories/in-memory/InMemoryStatementsRepository";
 import { CreateStatementError } from "./CreateStatementError";
 import { CreateStatementUseCase } from "./CreateStatementUseCase";
-
-enum OperationType {
-  DEPOSIT = 'deposit',
-  WITHDRAW = 'withdraw',
-}
 
 let createStatementUseCase: CreateStatementUseCase;
 let createUserUseCase: CreateUserUseCase;
@@ -33,7 +29,7 @@ describe("Create Statement", () => {
       user_id: user.id as string,
       description: "Deposit test",
       amount: 500,
-      type: 'deposit' as OperationType
+      type: OperationType.DEPOSIT,
     })
 
     expect(makeDeposit).toHaveProperty("id");
@@ -53,14 +49,14 @@ describe("Create Statement", () => {
       user_id: user.id as string,
       description: "Deposit test",
       amount: 500,
-      type: 'deposit' as OperationType
+      type: OperationType.DEPOSIT,
     })
 
     const makeWithdraw = await createStatementUseCase.execute({
       user_id: user.id as string,
       description: "Withdraw test",
       amount: 200,
-      type: 'withdraw' as OperationType
+      type: OperationType.WITHDRAW,
     })
 
     expect(makeWithdraw).toHaveProperty("id");
@@ -76,7 +72,7 @@ describe("Create Statement", () => {
         user_id: "non-existent user",
         description: "Deposit test",
         amount: 500,
-        type: 'deposit' as OperationType
+        type: OperationType.DEPOSIT
       })
 
     }).rejects.toBeInstanceOf(CreateStatementError.UserNotFound);
@@ -96,14 +92,14 @@ describe("Create Statement", () => {
         user_id: user.id as string,
         description: "Deposit test",
         amount: 500,
-        type: 'deposit' as OperationType
+        type: OperationType.DEPOSIT,
       })
 
       await createStatementUseCase.execute({
         user_id: user.id as string,
         description: "Withdraw test",
         amount: 700,
-        type: 'withdraw' as OperationType
+        type: OperationType.WITHDRAW,
       })
 
     }).rejects.toBeInstanceOf(CreateStatementError.InsufficientFunds);

@@ -1,7 +1,7 @@
 {
+  "name": "default",
   "username": "docker",
   "password": "senha123",
-  "name": "default",
   "type": "postgres",
   "host": "192.168.99.101",
   "port": 5432,
